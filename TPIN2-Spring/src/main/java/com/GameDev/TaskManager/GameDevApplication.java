@@ -1,13 +1,13 @@
-package com.TPIN2Spring.TPIN2Spring;
+package com.GameDev.TaskManager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Tpin2SpringApplication {
+public class GameDevApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Tpin2SpringApplication.class, args);
+		SpringApplication.run(GameDevApplication.class, args);
 	}
 
 }
