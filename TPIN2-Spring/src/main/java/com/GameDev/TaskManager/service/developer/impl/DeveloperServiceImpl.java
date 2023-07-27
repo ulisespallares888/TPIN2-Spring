@@ -5,6 +5,7 @@ import com.GameDev.TaskManager.mapper.developer.impl.DeveloperMapperImpl;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @Service
+@Slf4j
 public class DeveloperServiceImpl implements DeveloperService {
     private final DeveloperRepository developerRepository;
     private final DeveloperMapperImpl developerMapper;
@@ -59,7 +61,19 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Developer update(UUID uuid, DeveloperDto developerDto) throws Exception {
-        return null;
+    public Optional<DeveloperDto> update(UUID uuid, DeveloperDto developerDto) throws Exception {
+        log.info(" developerDto "+developerDto.toString());
+        Optional<Developer> developerOptional  = developerRepository.findById(uuid);
+        log.info(" developerOptional "+developerOptional.get());
+        if(developerOptional.isPresent()){
+            Developer developer = developerMapper.formDtoToEntity(developerDto);
+            developer.setUuid(uuid);
+            developer = developerRepository.saveAndFlush(developer);
+            Optional<DeveloperDto> developerDtoOptional = Optional.ofNullable(developerMapper.formEntityToDto(developer));
+            return Optional.of(developerDtoOptional.get());
+        }else {
+            return Optional.empty();
+        }
+
     }
 }

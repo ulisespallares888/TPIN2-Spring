@@ -13,6 +13,6 @@ public interface DeveloperService  {
     Optional<DeveloperDto> findById(UUID uuid);
     Developer create(DeveloperDto developerDto)  throws Exception;
     boolean delete (UUID uuid);
-    Developer update(UUID uuid, DeveloperDto developerDto)  throws Exception;
+    Object update(UUID uuid, DeveloperDto developerDto)  throws Exception;
 
 }

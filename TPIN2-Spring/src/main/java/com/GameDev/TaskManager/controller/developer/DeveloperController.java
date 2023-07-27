@@ -65,4 +65,14 @@ public class DeveloperController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@PathVariable UUID id, @RequestBody DeveloperDto developerDto) throws Exception{
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(developerService.update(id,developerDto));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+        }
+    }
 }
