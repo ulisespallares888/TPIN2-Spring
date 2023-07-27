@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DeveloperService  {
-    List<DeveloperDto>  findAll () throws Exception;
-    Optional<DeveloperDto> findById(UUID uuid)  throws Exception;
+    List<DeveloperDto>  findAll ();
+    Optional<DeveloperDto> findById(UUID uuid);
     Developer create(DeveloperDto developerDto)  throws Exception;
-    boolean delete (UUID uuid)  throws Exception;
-    Developer update(UUID uuid,DeveloperDto developerDto)  throws Exception;
+    boolean delete (UUID uuid);
+    Developer update(UUID uuid, DeveloperDto developerDto)  throws Exception;
 
 }

@@ -23,25 +23,18 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public List<DeveloperDto> findAll() throws Exception {
-        try {
+    public List<DeveloperDto> findAll() {
+
             List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(developerRepository.findAll());
             return developerDtos;
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+
     }
 
     @Override
-    public Optional<DeveloperDto> findById(UUID uuid) throws Exception {
-        try {
-            Optional<DeveloperDto> optionalDeveloperDto = Optional.ofNullable(developerMapper.formEntityToDto(developerRepository.getById(uuid)));
-            return optionalDeveloperDto;
+    public Optional<DeveloperDto> findById(UUID uuid)  {
 
-        } catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
-
+        Optional<DeveloperDto> optionalDeveloperDto = Optional.ofNullable(developerMapper.formEntityToDto(developerRepository.getById(uuid)));
+        return optionalDeveloperDto;
     }
 
     @Override
@@ -55,8 +48,14 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public boolean delete(UUID uuid) throws Exception {
-        return false;
+    public boolean delete(UUID uuid) {
+        if(findById(uuid).isPresent()){
+            developerRepository.deleteById(uuid);
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     @Override

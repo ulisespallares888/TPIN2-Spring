@@ -52,7 +52,17 @@ public class DeveloperController {
             return ResponseEntity.status(HttpStatus.OK).body(developerService.findById(id));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable UUID id) throws Exception{
+        try {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(developerService.delete(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
         }
     }
 }
