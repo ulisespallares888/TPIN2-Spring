@@ -37,16 +37,12 @@ public class Task {
     @Column
     private LocalDate deadLine;
 
-    //@Column
-    //private String game;
-
     @ManyToOne
+    @JoinColumn(name = "developer_uuid")
     private Developer responsibleDeveloper;
 
-
-    @ManyToMany
-    @JoinTable(name = "task_game",joinColumns = @JoinColumn(name = "task_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "game_uuid"))
-    private List<Game> games = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "game_uuid")
+    private Game game;
 
 }

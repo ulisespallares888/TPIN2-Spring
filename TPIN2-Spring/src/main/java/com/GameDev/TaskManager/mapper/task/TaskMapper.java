@@ -3,7 +3,6 @@ package com.GameDev.TaskManager.mapper.task;
 
 
 import com.GameDev.TaskManager.domain.Task;
-import com.GameDev.TaskManager.model.dto.game.GameDto;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 
 import java.util.List;

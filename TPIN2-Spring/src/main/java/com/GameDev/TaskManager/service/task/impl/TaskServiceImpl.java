@@ -13,13 +13,14 @@ import com.GameDev.TaskManager.repository.task.TaskRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.task.TaskService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@Slf4j
 @Service
 @Component
 @AllArgsConstructor
@@ -38,7 +39,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Optional<TaskDto> findById(UUID uuid) {
         Optional<TaskDto> optionalTaskDto = Optional.ofNullable(taskMapper.formEntityToDto(taskRepository.getById(uuid)));
-        return optionalTaskDto;
+        if(optionalTaskDto.isPresent()){
+            return Optional.of(optionalTaskDto.get());
+        } else {
+            return Optional.empty();
+        }
+
     }
 
     @Override
@@ -47,11 +53,12 @@ public class TaskServiceImpl implements TaskService {
             Optional<Developer> developerFound = developerRepository.findById(UUID.fromString(taskDto.getResponsibleDeveloperDto()));
             Optional<Game> gameFound = gameRepository.findById(UUID.fromString(taskDto.getGameTask()));
             if (developerFound.isPresent() || gameFound.isPresent()){
-                Task taskNew = new Task();
+
+                Task taskNew = taskMapper.formDtoToEntity(taskDto);
                 taskNew.setResponsibleDeveloper(developerFound.get());
-                taskNew.getGames().add(gameFound.get());
-                taskNew = taskRepository.save(taskMapper.formDtoToEntity(taskDto));
-                return taskNew;
+                taskNew.setGame(gameFound.get());
+
+                return taskRepository.save(taskNew);
             }
            else {
                throw new Exception();

@@ -30,9 +30,7 @@ public class Game {
     @Column
     private String title;
 
-    @ManyToMany
-    @JoinTable(name = "task_game",joinColumns = @JoinColumn(name = "game_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "task_uuid"))
+    @OneToMany(mappedBy = "game")
     private List<Task> tasks = new ArrayList<>();
 
     @ManyToMany
