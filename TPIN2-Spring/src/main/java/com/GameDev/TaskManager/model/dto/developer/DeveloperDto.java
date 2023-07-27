@@ -21,6 +21,6 @@ public class DeveloperDto {
     private String lastName;
     private String email;
     private RoleEnum roleEnum;
-    private List<TaskDto> taskDtos = new ArrayList<>();
-    private List<GameDto> gamesDtos = new ArrayList<>();
+  //  private List<TaskDto> taskDtos = new ArrayList<>();
+   // private List<GameDto> gamesDtos = new ArrayList<>();
 }

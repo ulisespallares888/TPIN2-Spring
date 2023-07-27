@@ -22,5 +22,5 @@ public class TaskDto {
     private StateEnum stateEnum;
     private LocalDate deadLine;
     private DeveloperDto responsibleDeveloperDto;
-    private List<GameDto> gameDtos = new ArrayList<>();
+   // private List<GameDto> gameDtos = new ArrayList<>();
 }

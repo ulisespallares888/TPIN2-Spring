@@ -48,8 +48,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void delete(UUID uuid) throws Exception {
-
+    public boolean delete(UUID uuid) throws Exception {
+        return false;
     }
 
     @Override

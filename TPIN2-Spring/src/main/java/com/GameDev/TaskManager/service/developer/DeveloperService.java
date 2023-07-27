@@ -12,7 +12,7 @@ public interface DeveloperService  {
     List<DeveloperDto>  findAll () throws Exception;
     Optional<Developer> findById(UUID uuid)  throws Exception;
     Developer create(DeveloperDto developerDto)  throws Exception;
-    void delete (UUID uuid)  throws Exception;
+    boolean delete (UUID uuid)  throws Exception;
     Developer update(UUID uuid)  throws Exception;
 
 }

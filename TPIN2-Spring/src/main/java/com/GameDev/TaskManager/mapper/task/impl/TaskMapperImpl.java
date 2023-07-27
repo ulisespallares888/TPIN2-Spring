@@ -23,7 +23,7 @@ public class TaskMapperImpl implements TaskMapper {
                 .description(taskDto.getDescription())
                 .responsibleDeveloper(developerMapper.formDtoToEntity(taskDto.getResponsibleDeveloperDto()))
                 .stateEnum(taskDto.getStateEnum())
-                .games(gamerMapper.convertListGameDtoToListEntityGame(taskDto.getGameDtos()))
+                //.games(gamerMapper.convertListGameDtoToListEntityGame(taskDto.getGameDtos()))
                 .build();
         return task;
     }
@@ -35,7 +35,7 @@ public class TaskMapperImpl implements TaskMapper {
                 .description(task.getDescription())
                 .responsibleDeveloperDto(developerMapper.formEntityToDto(task.getResponsibleDeveloper()))
                 .stateEnum(task.getStateEnum())
-                .gameDtos(gamerMapper.convertListEntityGameToListGameDto(task.getGames()))
+                //.gameDtos(gamerMapper.convertListEntityGameToListGameDto(task.getGames()))
                 .build();
         return taskDto;
     }
