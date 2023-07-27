@@ -62,18 +62,24 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Optional<DeveloperDto> update(UUID uuid, DeveloperDto developerDto) throws Exception {
-        log.info(" developerDto "+developerDto.toString());
+
         Optional<Developer> developerOptional  = developerRepository.findById(uuid);
-        log.info(" developerOptional "+developerOptional.get());
+
         if(developerOptional.isPresent()){
-            Developer developer = developerMapper.formDtoToEntity(developerDto);
-            developer.setUuid(uuid);
-            developer = developerRepository.saveAndFlush(developer);
-            Optional<DeveloperDto> developerDtoOptional = Optional.ofNullable(developerMapper.formEntityToDto(developer));
-            return Optional.of(developerDtoOptional.get());
+
+            Developer developerUpdated = updating(uuid,developerOptional.get(),developerDto);
+
+            return Optional.of(developerMapper.formEntityToDto( developerUpdated));
         }else {
             return Optional.empty();
         }
-
     }
+
+    private Developer updating(UUID uuid , Developer developer, DeveloperDto developerDto){
+        developer = developerMapper.formDtoToEntity(developerDto);
+        developer.setUuid(uuid);
+        developerRepository.saveAndFlush(developer);
+        return developer;
+    }
+
 }
