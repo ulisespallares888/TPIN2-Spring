@@ -50,7 +50,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable UUID id){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.findById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.findById(id).get());
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");

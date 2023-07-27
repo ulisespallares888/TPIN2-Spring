@@ -41,9 +41,9 @@ public class TaskMapperImpl implements TaskMapper {
                 .deadLine(task.getDeadLine())
                 .description(task.getDescription())
                 //.responsibleDeveloperDto(developerMapper.formEntityToDto(task.getResponsibleDeveloper()))
-                .responsibleDeveloperDto(task.getResponsibleDeveloper().toString())
+                .responsibleDeveloperDto(task.getResponsibleDeveloper().getUuid().toString())
                 .stateEnum(task.getStateEnum())
-                //.gameDtos(gamerMapper.convertListEntityGameToListGameDto(task.getGames()))
+                .gameTask(task.getGame().getUuid().toString())
                 .build();
         return taskDto;
     }

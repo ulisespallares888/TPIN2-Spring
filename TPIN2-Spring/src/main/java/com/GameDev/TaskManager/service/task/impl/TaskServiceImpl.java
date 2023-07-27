@@ -38,12 +38,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Optional<TaskDto> findById(UUID uuid) {
-        Optional<TaskDto> optionalTaskDto = Optional.ofNullable(taskMapper.formEntityToDto(taskRepository.getById(uuid)));
-        if(optionalTaskDto.isPresent()){
-            return Optional.of(optionalTaskDto.get());
-        } else {
-            return Optional.empty();
-        }
+        Optional<Task> optionalTask = Optional.of(taskRepository.getById(uuid));
+        return optionalTask.map(taskMapper::formEntityToDto);
 
     }
 
