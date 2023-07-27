@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @RequestMapping("api/v1/developer")
 public class DeveloperController {
-    private static final String PATH_V1 = "/api/v1/developer";
+    private static final String PATH_V1 = "/api/v1/developer/";
     private final DeveloperService developerService;
 
     @Autowired
@@ -44,4 +46,13 @@ public class DeveloperController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable UUID id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(developerService.findById(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
 }

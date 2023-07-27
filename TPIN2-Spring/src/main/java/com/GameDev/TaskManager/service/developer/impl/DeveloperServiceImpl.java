@@ -13,19 +13,19 @@ import java.util.Optional;
 import java.util.UUID;
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
-    private final DeveloperRepository repository;
+    private final DeveloperRepository developerRepository;
     private final DeveloperMapperImpl developerMapper;
 
     @Autowired
     public DeveloperServiceImpl(DeveloperRepository repository,DeveloperMapperImpl developerMapper) {
-        this.repository = repository;
+        this.developerRepository = repository;
         this.developerMapper = developerMapper;
     }
 
     @Override
     public List<DeveloperDto> findAll() throws Exception {
         try {
-            List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(repository.findAll());
+            List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(developerRepository.findAll());
             return developerDtos;
         } catch (Exception e){
             throw new Exception(e.getMessage());
@@ -33,14 +33,21 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Optional<Developer> findById(UUID uuid) throws Exception {
-        return Optional.empty();
+    public Optional<DeveloperDto> findById(UUID uuid) throws Exception {
+        try {
+            Optional<DeveloperDto> optionalDeveloperDto = Optional.ofNullable(developerMapper.formEntityToDto(developerRepository.getById(uuid)));
+            return optionalDeveloperDto;
+
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     @Override
     public Developer create(DeveloperDto developerDto) throws Exception {
         try {
-            return repository.save(developerMapper.formDtoToEntity(developerDto));
+            return developerRepository.save(developerMapper.formDtoToEntity(developerDto));
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
@@ -53,7 +60,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Developer update(UUID uuid) throws Exception {
+    public Developer update(UUID uuid, DeveloperDto developerDto) throws Exception {
         return null;
     }
 }
