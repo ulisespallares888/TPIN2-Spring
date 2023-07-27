@@ -4,6 +4,8 @@ import com.GameDev.TaskManager.domain.enumeration.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -23,6 +25,7 @@ public class Developer {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name="UUID",strategy="org.hibernate.id.UUIDGenerator")
+    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 36,columnDefinition = "varchar(36)",updatable = false,nullable = false)
     private UUID uuid;
 

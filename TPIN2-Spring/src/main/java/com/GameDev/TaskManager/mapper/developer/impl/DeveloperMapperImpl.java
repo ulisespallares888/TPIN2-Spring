@@ -6,6 +6,7 @@ import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
 import com.GameDev.TaskManager.mapper.game.impl.GamerMapperImpl;
 import com.GameDev.TaskManager.mapper.task.impl.TaskMapperImpl;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,9 +17,17 @@ public class DeveloperMapperImpl implements DeveloperMapper {
 
     private GamerMapperImpl gamerMapper;
     private TaskMapperImpl taskMapper;
+
+    @Autowired
+    public DeveloperMapperImpl(GamerMapperImpl gamerMapper, TaskMapperImpl taskMapper) {
+        this.gamerMapper = gamerMapper;
+        this.taskMapper = taskMapper;
+    }
+
     @Override
     public Developer formDtoToEntity(DeveloperDto developerDto) {
         Developer developer = Developer.builder()
+                .email(developerDto.getEmail())
                 .name(developerDto.getName())
                 .lastName(developerDto.getLastName())
                 .roleEnum(developerDto.getRoleEnum())
@@ -41,6 +50,7 @@ public class DeveloperMapperImpl implements DeveloperMapper {
         DeveloperDto developerDto = DeveloperDto.builder()
                 .name(developer.getName())
                 .lastName(developer.getLastName())
+                .email(developer.getEmail())
                 .roleEnum(developer.getRoleEnum())
                 .gamesDtos(gamerMapper.convertListEntityGameToListGameDto(developer.getGames()))
                 .taskDtos(taskMapper.convertListEntityTaskToListTaskDto(developer.getTasks()))

@@ -38,8 +38,13 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Developer create(Developer developer) throws Exception {
-        return null;
+    public Developer create(DeveloperDto developerDto) throws Exception {
+        try {
+            return repository.save(developerMapper.formDtoToEntity(developerDto));
+        } catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     @Override
