@@ -7,6 +7,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 @Setter
@@ -27,17 +28,23 @@ public class Game {
     private UUID uuid;
 
     @Column
-    private  String title;
+    private String title;
 
-    @Column
-    private List<String> taskList;
+    @ManyToMany
+    @JoinTable(name = "task_game",joinColumns = @JoinColumn(name = "game_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "task_uuid"))
+    private List<Task> tasks = new ArrayList<>();
 
-    @Column
-    private List<String> developerList;
+    @ManyToMany
+    @JoinTable(name = "developer_game",joinColumns = @JoinColumn(name = "game_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "developer_uuid"))
+    private List<Developer> developers = new ArrayList<>();
 
     @Column
     private String description;
 
     @Column
     private LocalDate releaseDate;
+
+
 }

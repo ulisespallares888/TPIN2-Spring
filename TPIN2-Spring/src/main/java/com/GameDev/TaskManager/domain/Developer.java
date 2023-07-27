@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import java.util.List;
 
 
 @Setter
@@ -35,4 +37,12 @@ public class Developer {
 
     @Enumerated(EnumType.STRING)
     private RoleEnum roleEnum;
+
+    @OneToMany(mappedBy = "responsibleDeveloper")
+    private List<Task> tasks = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "developer_game",joinColumns = @JoinColumn(name = "developer_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "game_uuid"))
+    private List<Game> games = new ArrayList<>();
 }

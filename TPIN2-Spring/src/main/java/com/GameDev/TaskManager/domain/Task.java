@@ -8,6 +8,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -35,9 +37,13 @@ public class Task {
     @Column
     private LocalDate deadLine;
 
-    @Column
-    private String responsibleDeveloper;
+    @ManyToOne
+    private Developer responsibleDeveloper;
 
-    @Column
-    private String gameTask;
+
+    @ManyToMany
+    @JoinTable(name = "task_game",joinColumns = @JoinColumn(name = "task_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "game_uuid"))
+    private List<Game> games = new ArrayList<>();
+
 }
