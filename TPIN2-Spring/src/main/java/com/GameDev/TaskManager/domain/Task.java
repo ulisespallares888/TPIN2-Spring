@@ -37,6 +37,9 @@ public class Task {
     @Column
     private LocalDate deadLine;
 
+    //@Column
+    //private String game;
+
     @ManyToOne
     private Developer responsibleDeveloper;
 

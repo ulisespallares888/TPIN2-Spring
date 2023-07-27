@@ -2,11 +2,15 @@ package com.GameDev.TaskManager.service.task.impl;
 
 
 import com.GameDev.TaskManager.domain.Developer;
+import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.domain.Task;
 import com.GameDev.TaskManager.mapper.task.TaskMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
+import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
+import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.repository.task.TaskRepository;
+import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.task.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,6 +27,8 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final DeveloperRepository developerRepository;
+    private final GameRepository gameRepository;
     @Override
     public List<TaskDto> findAll() {
         List<TaskDto> taskDto = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
@@ -38,7 +44,18 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task create(TaskDto taskDto) throws Exception {
         try {
-            return taskRepository.save(taskMapper.formDtoToEntity(taskDto));
+            Optional<Developer> developerFound = developerRepository.findById(UUID.fromString(taskDto.getResponsibleDeveloperDto()));
+            Optional<Game> gameFound = gameRepository.findById(UUID.fromString(taskDto.getGameTask()));
+            if (developerFound.isPresent() || gameFound.isPresent()){
+                Task taskNew = new Task();
+                taskNew.setResponsibleDeveloper(developerFound.get());
+                taskNew.getGames().add(gameFound.get());
+                taskNew = taskRepository.save(taskMapper.formDtoToEntity(taskDto));
+                return taskNew;
+            }
+           else {
+               throw new Exception();
+            }
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
