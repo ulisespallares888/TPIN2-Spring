@@ -1,34 +1,31 @@
 package com.GameDev.TaskManager.service.developer.impl;
 
 import com.GameDev.TaskManager.domain.Developer;
-import com.GameDev.TaskManager.mapper.developer.impl.DeveloperMapperImpl;
+import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-@Service
 @Slf4j
+@Service
+@AllArgsConstructor
 public class DeveloperServiceImpl implements DeveloperService {
     private final DeveloperRepository developerRepository;
-    private final DeveloperMapperImpl developerMapper;
+    private  DeveloperMapper developerMapper;
 
-    @Autowired
-    public DeveloperServiceImpl(DeveloperRepository repository,DeveloperMapperImpl developerMapper) {
-        this.developerRepository = repository;
-        this.developerMapper = developerMapper;
-    }
 
     @Override
     public List<DeveloperDto> findAll() {
 
-            List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(developerRepository.findAll());
-            return developerDtos;
+        List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(developerRepository.findAll());
+        return developerDtos;
 
     }
 
@@ -62,7 +59,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Optional<DeveloperDto> update(UUID uuid, DeveloperDto developerDto) throws Exception {
-
         Optional<Developer> developerOptional  = developerRepository.findById(uuid);
 
         if(developerOptional.isPresent()){

@@ -8,21 +8,19 @@ import com.GameDev.TaskManager.mapper.game.GameMapper;
 import com.GameDev.TaskManager.mapper.task.impl.TaskMapperImpl;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 @Component
+@AllArgsConstructor
 public class GamerMapperImpl implements GameMapper {
 
     private DeveloperMapperImpl developerMapper;
     private TaskMapperImpl taskMapper;
-    @Autowired
-    public GamerMapperImpl(DeveloperMapperImpl developerMapper, TaskMapperImpl taskMapper) {
-        this.developerMapper = developerMapper;
-        this.taskMapper = taskMapper;
-    }
+
 
     @Override
     public Game formDtoToEntity(GameDto gameDto) {
