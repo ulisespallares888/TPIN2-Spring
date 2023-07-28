@@ -1,15 +1,13 @@
 package com.GameDev.TaskManager.mapper.game.impl;
 
 
-import com.GameDev.TaskManager.domain.Developer;
+
 import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.mapper.developer.impl.DeveloperMapperImpl;
 import com.GameDev.TaskManager.mapper.game.GameMapper;
 import com.GameDev.TaskManager.mapper.task.impl.TaskMapperImpl;
-import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -29,7 +27,8 @@ public class GamerMapperImpl implements GameMapper {
                 .title(gameDto.getTitle())
                 .releaseDate(gameDto.getReleaseDate())
                 .developers(developerMapper.convertListDevDtoToListEntityDev(gameDto.getDevelopersDtos()))
-                .tasks(taskMapper.convertListTaskDtoToListEntityTask(gameDto.getTasksDtos()))                 .build();
+                .tasks(taskMapper.convertListTaskDtoToListEntityTask(gameDto.getTasksDtos()))
+                .build();
         return game;
     }
 

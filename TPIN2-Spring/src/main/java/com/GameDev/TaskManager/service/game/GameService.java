@@ -1,6 +1,7 @@
 package com.GameDev.TaskManager.service.game;
 
 import com.GameDev.TaskManager.domain.Game;
+import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface GameService {
     Game create(GameDto gameDto)  throws Exception;
     boolean delete (UUID uuid);
     Object update(UUID uuid, GameDto gameDto)  throws Exception;
+    Optional<GameDto>  addDeveloperById(UUID uuid, DeveloperDto developerDto)throws Exception ;
 }

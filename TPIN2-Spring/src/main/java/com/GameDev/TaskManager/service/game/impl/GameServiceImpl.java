@@ -3,13 +3,17 @@ package com.GameDev.TaskManager.service.game.impl;
 
 import com.GameDev.TaskManager.domain.Game;
 
+import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
 import com.GameDev.TaskManager.mapper.game.GameMapper;
+import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
 import com.GameDev.TaskManager.repository.game.GameRepository;
+import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.game.GameService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +26,8 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private  GameMapper gameMapper;
+    private DeveloperMapper developerMapper;
+    private DeveloperService developerService;
 
     @Override
     public List<GameDto> findAll() {
@@ -55,7 +61,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Object update(UUID uuid, GameDto gameDto) throws Exception {
+    public Optional<GameDto> update(UUID uuid, GameDto gameDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
         if (gameOptional.isPresent()) {
@@ -74,6 +80,20 @@ public class GameServiceImpl implements GameService {
         gameRepository.saveAndFlush(game);
         return game;
     }
+@   Override
+    public Optional<GameDto>  addDeveloperById(UUID uuid, DeveloperDto developerDto) throws Exception {
+        Optional<Game> gameOptional = gameRepository.findById(uuid);
 
+        log.info(developerDto.toString());
+
+
+        if (gameOptional.isPresent()) {
+            gameOptional.get().getDevelopers().add(developerService.create(developerDto));
+            gameRepository.saveAndFlush(gameOptional.get());
+            return Optional.of(gameMapper.formEntityToDto(gameOptional.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
 
 }
