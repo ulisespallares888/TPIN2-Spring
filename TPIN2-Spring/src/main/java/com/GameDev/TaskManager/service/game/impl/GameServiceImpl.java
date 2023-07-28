@@ -4,7 +4,7 @@ package com.GameDev.TaskManager.service.game.impl;
 import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.domain.Game;
 
-import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
+
 import com.GameDev.TaskManager.mapper.game.GameMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
@@ -15,7 +15,6 @@ import com.GameDev.TaskManager.service.game.GameService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +25,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class GameServiceImpl implements GameService {
 
-    private final GameRepository gameRepository;
-    private  GameMapper gameMapper;
-    private DeveloperMapper developerMapper;
+    private GameRepository gameRepository;
+    private GameMapper gameMapper;
     private DeveloperService developerService;
     private DeveloperRepository developerRepository;
 
@@ -89,7 +87,8 @@ public class GameServiceImpl implements GameService {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
         if (gameOptional.isPresent()) {
-            gameOptional.get().getDevelopers().add(developerService.create(developerDto));
+            Developer developerNew = developerService.create(developerDto);
+            gameOptional.get().getDevelopers().add(developerNew);
             gameRepository.saveAndFlush(gameOptional.get());
             return Optional.of(gameMapper.formEntityToDto(gameOptional.get()));
         } else {

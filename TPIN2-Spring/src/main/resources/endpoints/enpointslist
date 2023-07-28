@@ -1,0 +1,49 @@
+[------------ Game ------------]
+#Get
++ http://localhost:8080/api/v1/game
++ http://localhost:8080/api/v1/game/id
+- http://localhost:8080/api/v1/game/id/developer
+- http://localhost:8080/api/v1/game/id/task
+
+#Post
++ http://localhost:8080/api/v1/game
+
+#Put
+- http://localhost:8080/api/v1/game/id
++ http://localhost:8080/api/v1/game/id/developer
++ http://localhost:8080/api/v1/game/id/developer/id
+
+#Delete
++ http://localhost:8080/api/v1/game/id
+
+[------------ Developer ------------]
+#Get
++ http://localhost:8080/api/v1/developer
++ http://localhost:8080/api/v1/developer/id
+- http://localhost:8080/api/v1/developer/id/task
+
+#Post
++ http://localhost:8080/api/v1/developer
+
+#Put
++ http://localhost:8080/api/v1/developer/id
+
+#Delete
++ http://localhost:8080/api/v1/developer/id
+
+[------------ Task ------------]
+#Get
++ http://localhost:8080/api/v1/task
++ http://localhost:8080/api/v1/task/id
+- http://localhost:8080/api/v1/task/id/developer
+- http://localhost:8080/api/v1/task/id/task
+
+#Post
++ http://localhost:8080/api/v1/task
+
+#Put
++ http://localhost:8080/api/v1/task/id
+- http://localhost:8080/api/v1/task/game/id/developer/id
+
+#Delete
++ http://localhost:8080/api/v1/task/id

@@ -77,10 +77,12 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Object update(UUID uuid, TaskDto taskDto) throws Exception {
         Optional<Task> taskDtoOptional = taskRepository.findById(uuid);
+        Optional<Developer> developerOptional = developerRepository.findById(taskDtoOptional.get().getResponsibleDeveloper().getUuid());
+        Optional<Game> gameOptional = gameRepository.findById(taskDtoOptional.get().getGame().getUuid());
 
-        if (taskDtoOptional.isPresent()) {
+        if (taskDtoOptional.isPresent() && developerOptional.isPresent() && gameOptional.isPresent()) {
 
-            Task taskUpdated = updating(uuid, taskDtoOptional.get(), taskDto);
+            Task taskUpdated = updating(uuid, taskDtoOptional, taskDto, developerOptional,gameOptional);
 
             return Optional.of(taskMapper.formEntityToDto(taskUpdated));
         } else {
@@ -88,10 +90,14 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    private Task updating(UUID uuid , Task task, TaskDto taskDto){
-        task = taskMapper.formDtoToEntity(taskDto);
-        task.setUuid(uuid);
-        taskRepository.saveAndFlush(task);
-        return task;
+    private Task updating(UUID uuid , Optional<Task> task, TaskDto taskDto, Optional<Developer> developerOptional, Optional<Game> gameOptional){
+
+        task = Optional.ofNullable(taskMapper.formDtoToEntity(taskDto));
+        task.get().setUuid(uuid);
+        task.get().setResponsibleDeveloper(developerOptional.get());
+        task.get().setGame(gameOptional.get());
+        taskRepository.saveAndFlush(task.get());
+
+        return task.get();
     }
 }
