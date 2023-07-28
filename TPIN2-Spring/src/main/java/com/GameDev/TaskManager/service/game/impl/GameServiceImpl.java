@@ -1,12 +1,14 @@
 package com.GameDev.TaskManager.service.game.impl;
 
 
+import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.domain.Game;
 
 import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
 import com.GameDev.TaskManager.mapper.game.GameMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
+import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.game.GameService;
@@ -28,6 +30,7 @@ public class GameServiceImpl implements GameService {
     private  GameMapper gameMapper;
     private DeveloperMapper developerMapper;
     private DeveloperService developerService;
+    private DeveloperRepository developerRepository;
 
     @Override
     public List<GameDto> findAll() {
@@ -80,12 +83,26 @@ public class GameServiceImpl implements GameService {
         gameRepository.saveAndFlush(game);
         return game;
     }
+
     @Override
     public Optional<GameDto>  addDeveloperByBody(UUID uuid, DeveloperDto developerDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
         if (gameOptional.isPresent()) {
             gameOptional.get().getDevelopers().add(developerService.create(developerDto));
+            gameRepository.saveAndFlush(gameOptional.get());
+            return Optional.of(gameMapper.formEntityToDto(gameOptional.get()));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<GameDto> addDeveloperById(UUID idGame, UUID idDeveloper) throws Exception{
+        Optional<Game> gameOptional = gameRepository.findById(idGame);
+        Optional<Developer> developerOptional = developerRepository.findById(idDeveloper);
+        if (gameOptional.isPresent() && developerOptional.isPresent()) {
+            gameOptional.get().getDevelopers().add(developerOptional.get());
             gameRepository.saveAndFlush(gameOptional.get());
             return Optional.of(gameMapper.formEntityToDto(gameOptional.get()));
         } else {
