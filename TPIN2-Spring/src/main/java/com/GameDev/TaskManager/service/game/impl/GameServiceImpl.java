@@ -80,12 +80,9 @@ public class GameServiceImpl implements GameService {
         gameRepository.saveAndFlush(game);
         return game;
     }
-@   Override
-    public Optional<GameDto>  addDeveloperById(UUID uuid, DeveloperDto developerDto) throws Exception {
+    @Override
+    public Optional<GameDto>  addDeveloperByBody(UUID uuid, DeveloperDto developerDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
-
-        log.info(developerDto.toString());
-
 
         if (gameOptional.isPresent()) {
             gameOptional.get().getDevelopers().add(developerService.create(developerDto));

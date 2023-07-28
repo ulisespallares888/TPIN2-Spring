@@ -79,7 +79,7 @@ public class GameController{
     @PutMapping("/{id}/developer")
     public ResponseEntity addDeveloperById(@PathVariable UUID id, @RequestBody DeveloperDto developerDto) throws Exception {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(gameService.addDeveloperById(id,developerDto));
+            return ResponseEntity.status(HttpStatus.OK).body(gameService.addDeveloperByBody(id,developerDto));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");

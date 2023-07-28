@@ -14,5 +14,5 @@ public interface GameService {
     Game create(GameDto gameDto)  throws Exception;
     boolean delete (UUID uuid);
     Object update(UUID uuid, GameDto gameDto)  throws Exception;
-    Optional<GameDto>  addDeveloperById(UUID uuid, DeveloperDto developerDto)throws Exception ;
+    Optional<GameDto>  addDeveloperByBody(UUID uuid, DeveloperDto developerDto)throws Exception ;
 }
