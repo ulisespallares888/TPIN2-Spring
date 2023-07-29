@@ -59,7 +59,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.findById(id).get());
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" +  "\"}");
         }
     }
 
@@ -70,7 +70,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.findOverTimeTasks());
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" +  "\"}");
         }
     }
 
@@ -90,7 +90,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.findTasksOfOneGame(uuid));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" +  "\"}");
         }
     }
 
@@ -101,7 +101,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(taskService.delete(id));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" + "\"}");
         }
     }
     @PutMapping("/{id}")
@@ -110,7 +110,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.update(id,taskDto));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" + "\"}");
         }
     }
 }

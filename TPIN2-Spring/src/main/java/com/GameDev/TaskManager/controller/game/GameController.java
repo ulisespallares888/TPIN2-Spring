@@ -72,7 +72,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.OK).body(gameService.findDeveloperByIdGame(uuid));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" +  "\"}");
         }
     }
 
@@ -82,7 +82,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.OK).body(gameService.findTaskByIdGame(uuid));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" +  "\"}");
         }
     }
 
@@ -93,7 +93,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(gameService.delete(id));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" + "\"}");
         }
     }
 
@@ -103,7 +103,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.OK).body(gameService.update(id,gameDto));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" + "\"}");
         }
     }
 
@@ -113,7 +113,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.OK).body(gameService.addDeveloperByBody(id,developerDto));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" + "\"}");
         }
     }
 
@@ -123,7 +123,7 @@ public class GameController{
             return ResponseEntity.status(HttpStatus.OK).body(gameService.addDeveloperById(idGame,idDeveloper));
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" + "\"}");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" + "\"}");
         }
     }
 
