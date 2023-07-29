@@ -2,7 +2,6 @@ package com.GameDev.TaskManager.model.dto.task;
 
 
 import com.GameDev.TaskManager.domain.enumeration.StateEnum;
-import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import lombok.*;
 
 import java.time.LocalDate;

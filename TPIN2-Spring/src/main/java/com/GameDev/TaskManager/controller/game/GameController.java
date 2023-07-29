@@ -56,6 +56,16 @@ public class GameController{
         }
     }
 
+    @GetMapping("/finished")
+    public ResponseEntity<?> findFinishedGames(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(gameService.findFinishedGames());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable UUID id) throws Exception{
         try {

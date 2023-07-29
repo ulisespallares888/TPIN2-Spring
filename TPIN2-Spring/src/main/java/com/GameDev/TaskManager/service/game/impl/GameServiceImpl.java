@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -108,5 +110,24 @@ public class GameServiceImpl implements GameService {
             return Optional.empty();
         }
     }
+
+    @Override
+    public List<GameDto> findFinishedGames() {
+        List<GameDto> gameDtoList = findAll();
+        List<GameDto> finisehdGamesDtoList = finishedGames(gameDtoList);
+        return finisehdGamesDtoList;
+    }
+    private List<GameDto>  finishedGames( List<GameDto> gameDtoList) {
+        List<GameDto> finisehdGamesDtoList = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        for(GameDto gameDto: gameDtoList){
+            if(today.isAfter(gameDto.getReleaseDate())){
+                finisehdGamesDtoList.add(gameDto);
+            }
+        }
+        return finisehdGamesDtoList;
+    }
+
+
 
 }
