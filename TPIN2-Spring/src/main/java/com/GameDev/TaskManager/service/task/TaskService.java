@@ -15,4 +15,6 @@ public interface TaskService {
     boolean delete (UUID uuid);
     Object update(UUID uuid, TaskDto taskDto)  throws Exception;
     List<TaskDto> findByStatus(String status);
+    List<TaskDto> findOverTimeTasks();
+
 }

@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,13 +40,27 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskDto> findByStatus(String status) {
         List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
-        List<TaskDto> taskDtoListOput = new ArrayList<>();
+        List<TaskDto> taskDtoListOutput = new ArrayList<>();
         for(TaskDto taskDto: taskDtoList){
             if(taskDto.getStateEnum().toString().equalsIgnoreCase(status)){
-                taskDtoListOput.add(taskDto);
+                taskDtoListOutput.add(taskDto);
             }
         }
-        return taskDtoListOput;
+        return taskDtoListOutput;
+    }
+
+    @Override
+    public List<TaskDto> findOverTimeTasks() {
+        List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
+        List<TaskDto> taskDtoListOverTime = new ArrayList<>();
+        for (TaskDto taskDto: taskDtoList){
+            if(taskDto.getDeadLine().isBefore(LocalDate.now())){
+                if(!taskDto.getStateEnum().equals("COMPLETED")){
+                    taskDtoListOverTime.add(taskDto);
+                }
+            }
+        }
+        return taskDtoListOverTime;
     }
 
     @Override
