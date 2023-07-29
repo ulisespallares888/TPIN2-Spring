@@ -16,5 +16,6 @@ public interface TaskService {
     Object update(UUID uuid, TaskDto taskDto)  throws Exception;
     List<TaskDto> findByStatus(String status);
     List<TaskDto> findOverTimeTasks();
+    List<TaskDto>  findTasksOfOneDeveloper(UUID uuid);
 
 }

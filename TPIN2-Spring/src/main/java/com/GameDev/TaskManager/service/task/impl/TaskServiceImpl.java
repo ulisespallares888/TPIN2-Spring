@@ -64,6 +64,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskDto> findTasksOfOneDeveloper(UUID uuid) {
+        Optional<Developer> developerOptional = developerRepository.findById(uuid);
+
+        if (developerOptional.isPresent()){
+            List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(developerOptional.get().getTasks());
+            return taskDtoList;
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public Optional<TaskDto> findById(UUID uuid) {
         Optional<Task> optionalTask = Optional.of(taskRepository.getById(uuid));
         return optionalTask.map(taskMapper::formEntityToDto);
