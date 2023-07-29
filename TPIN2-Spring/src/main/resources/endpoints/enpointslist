@@ -9,7 +9,6 @@
 + http://localhost:8080/api/v1/game/id/tasks
 
 
-
 #Post
 + http://localhost:8080/api/v1/game
 
@@ -44,11 +43,10 @@
 #Get
 + http://localhost:8080/api/v1/task
 + http://localhost:8080/api/v1/task/id
-- http://localhost:8080/api/v1/task/id/developer
 + http://localhost:8080/api/v1/task/overtime
 + http://localhost:8080/api/v1/task?status=PENDING
 + http://localhost:8080/api/v1/task/developer/id
-- http://localhost:8080/api/v1/task/game/id
++ http://localhost:8080/api/v1/task/game/id
 
 #Post
 + http://localhost:8080/api/v1/task

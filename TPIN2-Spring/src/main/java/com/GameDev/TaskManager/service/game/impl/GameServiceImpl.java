@@ -120,24 +120,6 @@ public class GameServiceImpl implements GameService {
         return finisehdGamesDtoList;
     }
 
-    @Override
-    public List<DeveloperDto> findDeveloperByIdGame(UUID uuid) {
-        Optional<GameDto> gameDto = findById(uuid);
-        if (gameDto.isPresent()){
-            return gameDto.get().getDevelopersDtos();
-        }
-        return new ArrayList<>();
-    }
-
-    @Override
-    public List<TaskDto> findTaskByIdGame(UUID uuid) {
-        Optional<GameDto> gameDto = findById(uuid);
-        if(gameDto.isPresent()){
-            return gameDto.get().getTasksDtos();
-        }
-        return new ArrayList<>();
-    }
-
     private List<GameDto>  finishedGames( List<GameDto> gameDtoList) {
         List<GameDto> finisehdGamesDtoList = new ArrayList<>();
         LocalDate today = LocalDate.now();
@@ -148,6 +130,45 @@ public class GameServiceImpl implements GameService {
         }
         return finisehdGamesDtoList;
     }
+
+    @Override
+    public List<DeveloperDto> findDeveloperByIdGame(UUID uuid) {
+        Optional<GameDto> gameDto = findById(uuid);
+        if (gameDto.isPresent()){
+            return gameDto.get().getDevelopersDtos();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<GameDto> findInProcessGames() {
+        List<GameDto> gameDtoList = findAll();
+        List<GameDto> inProcessGamesDtoList = inProcessGames(gameDtoList);
+        return inProcessGamesDtoList;
+    }
+
+    private List<GameDto> inProcessGames( List<GameDto> gameDtoList) {
+        List<GameDto> finisehdGamesDtoList = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        for(GameDto gameDto: gameDtoList){
+            if(today.isBefore(gameDto.getReleaseDate())){
+                finisehdGamesDtoList.add(gameDto);
+            }
+        }
+        return finisehdGamesDtoList;
+    }
+
+
+    @Override
+    public List<TaskDto> findTaskByIdGame(UUID uuid) {
+        Optional<GameDto> gameDto = findById(uuid);
+        if(gameDto.isPresent()){
+            return gameDto.get().getTasksDtos();
+        }
+        return new ArrayList<>();
+    }
+
+
 
 
 

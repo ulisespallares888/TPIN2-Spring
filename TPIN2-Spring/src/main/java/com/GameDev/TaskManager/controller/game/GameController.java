@@ -66,6 +66,16 @@ public class GameController{
         }
     }
 
+    @GetMapping("/inprocess")
+    public ResponseEntity<?> findNoFinishedGames(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(gameService.findInProcessGames());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+        }
+    }
+
     @GetMapping("/{id}/developers")
     public ResponseEntity<?> findDeveloperByIdGame(@PathVariable(value = "id") UUID uuid){
         try {
