@@ -117,6 +117,16 @@ public class GameServiceImpl implements GameService {
         List<GameDto> finisehdGamesDtoList = finishedGames(gameDtoList);
         return finisehdGamesDtoList;
     }
+
+    @Override
+    public List<DeveloperDto> findDeveloperByIdGame(UUID uuid) {
+        Optional<GameDto> gameDto = findById(uuid);
+        if (gameDto.isPresent()){
+            return gameDto.get().getDevelopersDtos();
+        }
+        return new ArrayList<>();
+    }
+
     private List<GameDto>  finishedGames( List<GameDto> gameDtoList) {
         List<GameDto> finisehdGamesDtoList = new ArrayList<>();
         LocalDate today = LocalDate.now();
