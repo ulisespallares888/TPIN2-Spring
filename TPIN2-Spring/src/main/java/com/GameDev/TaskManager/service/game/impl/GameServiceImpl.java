@@ -68,6 +68,7 @@ public class GameServiceImpl implements GameService {
     public Optional<GameDto> update(UUID uuid, GameDto gameDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
+
         if (gameOptional.isPresent()) {
 
             Game gameUpdated = updating(uuid, gameOptional.get(), gameDto);

@@ -1,11 +1,10 @@
 package com.GameDev.TaskManager.controller.task;
 
 
-import com.GameDev.TaskManager.domain.Developer;
+
 import com.GameDev.TaskManager.domain.Task;
-import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
+import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
-import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.task.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,14 +23,21 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("")
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> findAll(@RequestParam(name = "status",required = false) String  status){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.findAll());
+            if(status == null){
+                return ResponseEntity.status(HttpStatus.OK).body(taskService.findAll());
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(taskService.findByStatus(status));
+            }
+
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
+
+
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody TaskDto taskDto){

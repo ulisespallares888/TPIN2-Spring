@@ -27,7 +27,7 @@
 #Get
 + http://localhost:8080/api/v1/developer
 + http://localhost:8080/api/v1/developer/id
-- http://localhost:8080/api/v1/developer/id/task
++ http://localhost:8080/api/v1/developer/id/task
 
 #Post
 + http://localhost:8080/api/v1/developer
@@ -46,6 +46,7 @@
 + http://localhost:8080/api/v1/task/id
 - http://localhost:8080/api/v1/task/id/developer
 - http://localhost:8080/api/v1/task/id/task
+- http://localhost:8080/api/v1/task?status=PENDING
 
 #Post
 + http://localhost:8080/api/v1/task
