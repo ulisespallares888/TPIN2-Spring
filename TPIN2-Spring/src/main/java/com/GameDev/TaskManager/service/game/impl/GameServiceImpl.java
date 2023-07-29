@@ -8,6 +8,7 @@ import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.mapper.game.GameMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
+import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
@@ -123,6 +124,15 @@ public class GameServiceImpl implements GameService {
         Optional<GameDto> gameDto = findById(uuid);
         if (gameDto.isPresent()){
             return gameDto.get().getDevelopersDtos();
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<TaskDto> findTaskByIdGame(UUID uuid) {
+        Optional<GameDto> gameDto = findById(uuid);
+        if(gameDto.isPresent()){
+            return gameDto.get().getTasksDtos();
         }
         return new ArrayList<>();
     }
