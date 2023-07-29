@@ -17,5 +17,6 @@ public interface TaskService {
     List<TaskDto> findByStatus(String status);
     List<TaskDto> findOverTimeTasks();
     List<TaskDto>  findTasksOfOneDeveloper(UUID uuid);
+    List<TaskDto>  findTasksOfOneGame(UUID uuid);
 
 }

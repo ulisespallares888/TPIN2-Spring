@@ -75,6 +75,16 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<TaskDto> findTasksOfOneGame(UUID uuid) {
+        Optional<Game> gameOptional = gameRepository.findById(uuid);
+        if(gameOptional.isPresent()){
+            List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(gameOptional.get().getTasks());
+            return taskDtoList;
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
     public Optional<TaskDto> findById(UUID uuid) {
         Optional<Task> optionalTask = Optional.of(taskRepository.getById(uuid));
         return optionalTask.map(taskMapper::formEntityToDto);

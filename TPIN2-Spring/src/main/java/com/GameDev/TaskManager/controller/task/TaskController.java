@@ -84,6 +84,16 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/game/{id}")
+    public ResponseEntity<?> findTasksOfOneGame(@PathVariable(name = "id") UUID uuid){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.findTasksOfOneGame(uuid));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+        }
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable UUID id) throws Exception{
