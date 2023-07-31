@@ -14,5 +14,5 @@ public interface DeveloperService  {
     Developer create(DeveloperDto developerDto)  throws Exception;
     boolean delete (UUID uuid);
     Object update(UUID uuid, DeveloperDto developerDto)  throws Exception;
-    List<DeveloperDto> findByIdGame(UUID id);
+    List<DeveloperDto> findDeveloperByIdGame(UUID id);
 }

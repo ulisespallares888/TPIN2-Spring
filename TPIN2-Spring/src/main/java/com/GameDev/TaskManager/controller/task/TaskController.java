@@ -3,6 +3,7 @@ package com.GameDev.TaskManager.controller.task;
 
 
 import com.GameDev.TaskManager.domain.Task;
+import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.service.task.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -67,6 +68,7 @@ public class TaskController {
 
 
 
+
     @GetMapping("/developer/{id}")
     public ResponseEntity<?> findTasksOfOneDeveloper(@PathVariable(name = "id") UUID uuid){
         try {
@@ -88,6 +90,7 @@ public class TaskController {
     }
 
 
+
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable UUID id) throws Exception{
         try {
@@ -106,4 +109,15 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" + "\"}");
         }
     }
+
+    @PutMapping("/{id}/state")
+    public ResponseEntity updateState(@PathVariable UUID id, @RequestParam(required = false) StateEnum state) throws Exception {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.updateState(id,state));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" + "\"}");
+        }
+    }
 }
+

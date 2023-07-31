@@ -12,7 +12,7 @@
 + http://localhost:8080/api/v1/game
 
 #Put
-- http://localhost:8080/api/v1/game/id
++ http://localhost:8080/api/v1/game/id
 + http://localhost:8080/api/v1/game/id/developer
 + http://localhost:8080/api/v1/game/id/developer/id
 
@@ -43,7 +43,7 @@
 + http://localhost:8080/api/v1/task
 + http://localhost:8080/api/v1/task/id
 + http://localhost:8080/api/v1/task/overtime
-+ http://localhost:8080/api/v1/task?status=PENDING
++ http://localhost:8080/api/v1/task?status=StateEnum
 + http://localhost:8080/api/v1/task/developer/id
 + http://localhost:8080/api/v1/task/game/id
 
@@ -52,7 +52,8 @@
 
 #Put
 + http://localhost:8080/api/v1/task/id
-- http://localhost:8080/api/v1/task/game/id/developer/id
++ http://localhost:8080/api/v1/task/id/state?state=StateEnum
++ http://localhost:8080/api/v1/task/game/id/developer/id
 
 #Delete
 + http://localhost:8080/api/v1/task/id

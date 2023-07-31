@@ -75,7 +75,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public List<DeveloperDto> findByIdGame(UUID id) {
+    public List<DeveloperDto> findDeveloperByIdGame(UUID id) {
         List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(gameRepository.findById(id).get().getDevelopers());
         if(!developerDtos.isEmpty()){
             return developerDtos;

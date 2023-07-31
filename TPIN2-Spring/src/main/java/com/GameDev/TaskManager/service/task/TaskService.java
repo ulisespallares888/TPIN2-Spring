@@ -2,6 +2,7 @@ package com.GameDev.TaskManager.service.task;
 
 
 import com.GameDev.TaskManager.domain.Task;
+import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 
 import java.util.List;
@@ -19,5 +20,6 @@ public interface TaskService {
     List<TaskDto>  findTasksOfOneDeveloper(UUID uuid);
     List<TaskDto>  findTasksOfOneGame(UUID uuid);
     List<TaskDto> findTask(String status);
+    Optional<TaskDto> updateState(UUID uuid, StateEnum stateEnum);
 
 }

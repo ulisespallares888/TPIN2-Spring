@@ -54,9 +54,9 @@ public class DeveloperController {
     }
 
     @GetMapping("/game/{id}")
-    public ResponseEntity<?> findByIdGame(@PathVariable UUID id){
+    public ResponseEntity<?> findDeveloperByIdGame(@PathVariable UUID id){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(developerService.findByIdGame(id));
+            return ResponseEntity.status(HttpStatus.OK).body(developerService.findDeveloperByIdGame(id));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");

@@ -4,6 +4,7 @@ package com.GameDev.TaskManager.service.task.impl;
 import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.domain.Task;
+import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.mapper.task.TaskMapper;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
@@ -36,6 +37,16 @@ public class TaskServiceImpl implements TaskService {
         }
         return findAll();
     }
+
+
+    @Override
+    public Optional<TaskDto> updateState(UUID uuid, StateEnum stateEnum) {
+        Optional<Task> optionalTask = Optional.of(taskRepository.getById(uuid));
+        optionalTask.get().setStateEnum(stateEnum);
+        taskRepository.saveAndFlush(optionalTask.get());
+        return Optional.ofNullable(taskMapper.formEntityToDto(optionalTask.get()));
+    }
+
     @Override
     public List<TaskDto> findAll() {
         List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
@@ -58,8 +69,9 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> findOverTimeTasks() {
         List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
         List<TaskDto> taskDtoListOverTime = new ArrayList<>();
+        LocalDate today = LocalDate.now();
         for (TaskDto taskDto: taskDtoList){
-            if(taskDto.getDeadLine().isBefore(LocalDate.now())){
+            if(taskDto.getDeadLine().isBefore(today)){
                 if(!taskDto.getStateEnum().equals("COMPLETED")){
                     taskDtoListOverTime.add(taskDto);
                 }
