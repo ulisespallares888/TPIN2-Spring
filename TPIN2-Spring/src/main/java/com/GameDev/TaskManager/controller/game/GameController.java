@@ -1,8 +1,6 @@
 package com.GameDev.TaskManager.controller.game;
 
 
-
-import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
@@ -18,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/v1/game")
 @RequiredArgsConstructor
-public class GameController{
+public class GameController {
     private static final String PATH_V1 = "/api/v1/game/";
     private final GameService gameService;
 

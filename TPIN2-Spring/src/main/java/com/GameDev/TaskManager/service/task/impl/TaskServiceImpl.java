@@ -4,7 +4,6 @@ package com.GameDev.TaskManager.service.task.impl;
 import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.domain.Task;
-import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.mapper.task.TaskMapper;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
@@ -15,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +30,24 @@ public class TaskServiceImpl implements TaskService {
     private final DeveloperRepository developerRepository;
     private final GameRepository gameRepository;
     @Override
+    public List<TaskDto> findTask(String state) {
+        if (state != null) {
+            return findByStatus(state);
+        }
+        return findAll();
+    }
+    @Override
     public List<TaskDto> findAll() {
         List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
         return taskDtoList;
     }
 
     @Override
-    public List<TaskDto> findByStatus(String status) {
+    public List<TaskDto> findByStatus(String state) {
         List<TaskDto> taskDtoList = taskMapper.convertListEntityTaskToListTaskDto(taskRepository.findAll());
         List<TaskDto> taskDtoListOutput = new ArrayList<>();
         for(TaskDto taskDto: taskDtoList){
-            if(taskDto.getStateEnum().toString().equalsIgnoreCase(status)){
+            if(taskDto.getStateEnum().toString().equalsIgnoreCase(state)){
                 taskDtoListOutput.add(taskDto);
             }
         }

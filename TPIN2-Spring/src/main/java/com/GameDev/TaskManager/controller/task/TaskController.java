@@ -3,7 +3,6 @@ package com.GameDev.TaskManager.controller.task;
 
 
 import com.GameDev.TaskManager.domain.Task;
-import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.service.task.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -23,21 +22,24 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("")
-    public ResponseEntity<?> findAll(@RequestParam(name = "status",required = false) String  status){
-        try {
-            if(status == null){
-                return ResponseEntity.status(HttpStatus.OK).body(taskService.findAll());
-            }else{
-                return ResponseEntity.status(HttpStatus.OK).body(taskService.findByStatus(status));
-            }
-
+    public ResponseEntity<?> findTask(@RequestParam(name = "state",required = false) String  state){
+       try{
+           return ResponseEntity.status(HttpStatus.OK).body(taskService.findTask(state));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
 
-
+    @GetMapping("/overtime")
+    public ResponseEntity<?> findOverTimeTasks(){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.findOverTimeTasks());
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" +  "\"}");
+        }
+    }
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody TaskDto taskDto){
@@ -64,15 +66,6 @@ public class TaskController {
     }
 
 
-    @GetMapping("/overtime")
-    public ResponseEntity<?> findOverTimeTasks(){
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.findOverTimeTasks());
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Task not found" +  "\"}");
-        }
-    }
 
     @GetMapping("/developer/{id}")
     public ResponseEntity<?> findTasksOfOneDeveloper(@PathVariable(name = "id") UUID uuid){

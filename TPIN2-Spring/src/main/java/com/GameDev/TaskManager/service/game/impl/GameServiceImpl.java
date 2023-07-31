@@ -13,6 +13,7 @@ import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
 import com.GameDev.TaskManager.service.game.GameService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,18 +35,21 @@ public class GameServiceImpl implements GameService {
     private DeveloperRepository developerRepository;
 
     @Override
+    @Transactional
     public List<GameDto> findAll() {
         List<GameDto> gameDtos = gameMapper.convertListEntityGameToListGameDto(gameRepository.findAll());
         return gameDtos;
     }
 
     @Override
+    @Transactional
     public Optional<GameDto> findById(UUID uuid) {
         Optional<GameDto> gameDtoOptional = Optional.ofNullable(gameMapper.formEntityToDto(gameRepository.getById(uuid)));
         return gameDtoOptional;
     }
 
     @Override
+    @Transactional
     public Game create(GameDto gameDto) throws Exception {
         try {
             return gameRepository.save(gameMapper.formDtoToEntity(gameDto));
@@ -55,6 +59,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public boolean delete(UUID uuid) {
         if(findById(uuid).isPresent()){
             gameRepository.deleteById(uuid);
@@ -65,6 +70,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public Optional<GameDto> update(UUID uuid, GameDto gameDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
@@ -87,6 +93,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public Optional<GameDto>  addDeveloperByBody(UUID uuid, DeveloperDto developerDto) throws Exception {
         Optional<Game> gameOptional = gameRepository.findById(uuid);
 
@@ -101,6 +108,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public Optional<GameDto> addDeveloperById(UUID idGame, UUID idDeveloper) throws Exception{
         Optional<Game> gameOptional = gameRepository.findById(idGame);
         Optional<Developer> developerOptional = developerRepository.findById(idDeveloper);
@@ -114,6 +122,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public List<GameDto> findFinishedGames() {
         List<GameDto> gameDtoList = findAll();
         List<GameDto> finisehdGamesDtoList = finishedGames(gameDtoList);
@@ -132,6 +141,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public List<DeveloperDto> findDeveloperByIdGame(UUID uuid) {
         Optional<GameDto> gameDto = findById(uuid);
         if (gameDto.isPresent()){
@@ -160,6 +170,7 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
+    @Transactional
     public List<TaskDto> findTaskByIdGame(UUID uuid) {
         Optional<GameDto> gameDto = findById(uuid);
         if(gameDto.isPresent()){
