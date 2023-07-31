@@ -4,12 +4,14 @@ import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.mapper.developer.DeveloperMapper;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
+import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,6 +21,7 @@ import java.util.UUID;
 public class DeveloperServiceImpl implements DeveloperService {
     private final DeveloperRepository developerRepository;
     private  DeveloperMapper developerMapper;
+    private GameRepository gameRepository;
 
 
     @Override
@@ -69,6 +72,15 @@ public class DeveloperServiceImpl implements DeveloperService {
         }else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<DeveloperDto> findByIdGame(UUID id) {
+        List<DeveloperDto> developerDtos = developerMapper.convertListEntityDevToListDevDto(gameRepository.findById(id).get().getDevelopers());
+        if(!developerDtos.isEmpty()){
+            return developerDtos;
+        }
+        return new ArrayList<>();
     }
 
     private Developer updating(UUID uuid , Developer developer, DeveloperDto developerDto){

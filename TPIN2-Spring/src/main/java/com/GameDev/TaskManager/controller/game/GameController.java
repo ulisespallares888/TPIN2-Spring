@@ -74,15 +74,6 @@ public class GameController {
         }
     }
 
-    @GetMapping("/{id}/developers")
-    public ResponseEntity<?> findDeveloperByIdGame(@PathVariable(value = "id") UUID uuid){
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(gameService.findDeveloperByIdGame(uuid));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Game not found" +  "\"}");
-        }
-    }
 
     @GetMapping("/{id}/tasks")
     public ResponseEntity<?> findTaskByIdGame(@PathVariable(value = "id") UUID uuid){

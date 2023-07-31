@@ -5,7 +5,6 @@ import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +47,16 @@ public class DeveloperController {
     public ResponseEntity<?> findById(@PathVariable UUID id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(developerService.findById(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
+        }
+    }
+
+    @GetMapping("/game/{id}")
+    public ResponseEntity<?> findByIdGame(@PathVariable UUID id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(developerService.findByIdGame(id));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");

@@ -140,15 +140,6 @@ public class GameServiceImpl implements GameService {
         return finisehdGamesDtoList;
     }
 
-    @Override
-    @Transactional
-    public List<DeveloperDto> findDeveloperByIdGame(UUID uuid) {
-        Optional<GameDto> gameDto = findById(uuid);
-        if (gameDto.isPresent()){
-            return gameDto.get().getDevelopersDtos();
-        }
-        return new ArrayList<>();
-    }
 
     @Override
     public List<GameDto> findInProcessGames() {

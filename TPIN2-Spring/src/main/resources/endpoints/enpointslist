@@ -5,7 +5,6 @@
 + http://localhost:8080/api/v1/game
 + http://localhost:8080/api/v1/game/id
 + http://localhost:8080/api/v1/game/finished
-+ http://localhost:8080/api/v1/game/id/developers
 + http://localhost:8080/api/v1/game/id/tasks
 
 
@@ -26,7 +25,7 @@
 #Get
 + http://localhost:8080/api/v1/developer
 + http://localhost:8080/api/v1/developer/id
-
++ http://localhost:8080/api/v1/developer/game/id
 
 #Post
 + http://localhost:8080/api/v1/developer

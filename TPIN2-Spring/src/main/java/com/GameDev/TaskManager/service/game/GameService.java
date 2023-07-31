@@ -19,6 +19,5 @@ public interface GameService {
     Optional<GameDto> addDeveloperById(UUID idGame, UUID idDeveloper)throws Exception;
     List<GameDto> findFinishedGames();
     List<GameDto> findInProcessGames();
-    List<DeveloperDto> findDeveloperByIdGame(UUID uuid);
     List<TaskDto> findTaskByIdGame(UUID uuid);
 }
