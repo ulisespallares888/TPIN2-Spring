@@ -1,9 +1,7 @@
-package com.GameDev.TaskManager.model.dto.developer;
+package com.GameDev.TaskManager.model.record.developer;
 
 
 import com.GameDev.TaskManager.domain.enumeration.RoleEnum;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -13,14 +11,10 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeveloperDto {
-    @NotBlank
+public class DeveloperRecordCsv {
     private String name;
-    @NotBlank
     private String lastName;
-    @NotBlank
     private String email;
-    @NotNull
     private RoleEnum roleEnum;
   //  private List<TaskDto> taskDtos = new ArrayList<>();
    // private List<GameDto> gamesDtos = new ArrayList<>();

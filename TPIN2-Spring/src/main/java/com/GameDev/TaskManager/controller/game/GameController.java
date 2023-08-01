@@ -5,6 +5,7 @@ import com.GameDev.TaskManager.domain.Game;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.model.dto.game.GameDto;
 import com.GameDev.TaskManager.service.game.GameService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class GameController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody GameDto gameDto){
+    public ResponseEntity<?> save(@RequestBody @Valid  GameDto gameDto){
         try {
 
             Game game = gameService.create(gameDto);

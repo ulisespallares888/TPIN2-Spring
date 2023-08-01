@@ -6,6 +6,7 @@ import com.GameDev.TaskManager.domain.Task;
 import com.GameDev.TaskManager.domain.enumeration.StateEnum;
 import com.GameDev.TaskManager.model.dto.task.TaskDto;
 import com.GameDev.TaskManager.service.task.TaskService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class TaskController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody TaskDto taskDto){
+    public ResponseEntity<?> save(@RequestBody @Valid TaskDto taskDto){
         try {
 
             Task task = taskService.create(taskDto);

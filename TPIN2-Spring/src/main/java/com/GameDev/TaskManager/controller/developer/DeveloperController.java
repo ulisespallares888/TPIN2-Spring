@@ -3,6 +3,7 @@ package com.GameDev.TaskManager.controller.developer;
 import com.GameDev.TaskManager.domain.Developer;
 import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class DeveloperController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> save(@RequestBody DeveloperDto developerDto){
+    public ResponseEntity<?> save(@RequestBody @Valid DeveloperDto developerDto){
         try {
 
             Developer developer = developerService.create(developerDto);
@@ -38,7 +39,6 @@ public class DeveloperController {
             return ResponseEntity.status(HttpStatus.OK).header("Location",header).body(developerDto);
 
         } catch (Exception e) {
-            log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" +"Developer not found" +  "\"}");
         }
     }

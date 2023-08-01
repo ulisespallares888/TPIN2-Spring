@@ -1,9 +1,7 @@
-package com.GameDev.TaskManager.model.dto.task;
+package com.GameDev.TaskManager.model.record.task;
 
 
 import com.GameDev.TaskManager.domain.enumeration.StateEnum;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,16 +13,11 @@ import java.time.LocalDate;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDto {
-    @NotBlank
+public class TaskRecordCsv {
     private String description;
-    @NotNull
     private StateEnum stateEnum;
-    @NotNull
     private LocalDate deadLine;
-    @NotBlank
     private String gameTask;
-    @NotBlank
     private String responsibleDeveloperDto;
    // private List<GameDto> gameDtos = new ArrayList<>();
 }
