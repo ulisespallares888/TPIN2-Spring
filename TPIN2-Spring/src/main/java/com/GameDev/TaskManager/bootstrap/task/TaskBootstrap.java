@@ -37,33 +37,28 @@ public class TaskBootstrap implements CommandLineRunner {
         loadTaskData();
     }
 
-    private Developer selectRandomDeveloper(){
-        List<Developer> developerList = developerRepository.findAll();
-        int randomDeveloper = (int) (Math.random() * 999) + 1;
-        return developerList.get(randomDeveloper);
-    }
 
-    private Game selectRandomGame(){
-        List<Game> gameList = gameRepository.findAll();
-        int randomGame = (int) (Math.random() * 999) + 1;
-        return gameList.get(randomGame);
-    }
     private void loadTaskData() throws FileNotFoundException {
+
         if (taskRepository.count() < 1000){
             File file = ResourceUtils.getFile("classpath:csvdata/tasks_data.csv");
             List<TaskRecordCsv> taskRecordCsvList = taskServiceCsv.convertCSV(file);
 
+            List<Developer> developerList = developerRepository.findAll();
+            List<Game> gameList = gameRepository.findAll();
+
             if (!taskRecordCsvList.isEmpty()){
                 log.info("Loading database with developers");
                 for (TaskRecordCsv taskRecordCsv: taskRecordCsvList) {
+                    int randomElement = (int) (Math.random() * 999) + 1;
                     taskRepository.save(
                             Task.builder()
                                     .uuid(UUID.randomUUID())
                                     .description(taskRecordCsv.getDescription())
                                     .stateEnum(taskRecordCsv.getStateEnum())
                                     .deadLine(taskRecordCsv.getDeadLine())
-                                    .responsibleDeveloper(selectRandomDeveloper())
-                                    .game(selectRandomGame())
+                                    .responsibleDeveloper(developerList.get(randomElement))
+                                    .game(gameList.get(randomElement))
                                     .build()
                     );
                 }
