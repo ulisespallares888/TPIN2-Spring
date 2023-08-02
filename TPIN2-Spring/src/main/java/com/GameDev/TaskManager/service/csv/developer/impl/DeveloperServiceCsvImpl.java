@@ -15,12 +15,12 @@ import java.util.List;
 public class DeveloperServiceCsvImpl implements DeveloperServiceCsv {
     @Override
     public List<DeveloperRecordCsv> convertCSV(File file) throws FileNotFoundException {
-        List<DeveloperRecordCsv> bookCsvRecordList =
+        List<DeveloperRecordCsv> developerRecordCsvList =
                 new CsvToBeanBuilder<DeveloperRecordCsv>(new FileReader(file))
                         .withType(DeveloperRecordCsv.class)
                         .build()
                         .parse();
         log.info("Turning CSV file to developers list");
-        return bookCsvRecordList;
+        return developerRecordCsvList;
     }
 }

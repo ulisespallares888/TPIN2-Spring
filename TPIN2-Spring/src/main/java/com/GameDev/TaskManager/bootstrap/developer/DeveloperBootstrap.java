@@ -27,7 +27,7 @@ public class DeveloperBootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Running BootstrapDeveloperBook");
+        log.info("Running BootstrapDeveloper");
 
         loadDeveloperData();
     }
