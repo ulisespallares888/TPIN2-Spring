@@ -133,12 +133,23 @@ public class GameServiceImpl implements GameService {
         List<GameDto> finisehdGamesDtoList = new ArrayList<>();
         LocalDate today = LocalDate.now();
         for(GameDto gameDto: gameDtoList){
-            if(today.isAfter(gameDto.getReleaseDate())){
+            if(today.isAfter(gameDto.getReleaseDate()) && filterTaskFinished(gameDto.getTasksDtos())){
                 finisehdGamesDtoList.add(gameDto);
             }
         }
         return finisehdGamesDtoList;
     }
+
+    private Boolean filterTaskFinished (List<TaskDto> taskDtoList){
+        boolean areAllTaskCompleted = true;
+        for(TaskDto taskDto: taskDtoList){
+            if(!taskDto.getStateEnum().toString().equals("COMPLETED")){
+                areAllTaskCompleted = false;
+            }
+        }
+        return areAllTaskCompleted;
+    }
+
 
 
     @Override

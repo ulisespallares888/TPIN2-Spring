@@ -46,6 +46,7 @@ public class GameBootstrap implements CommandLineRunner {
         return randomdevelopersList;
     }
 
+
     private void loadGameData() throws FileNotFoundException {
         if (gameRepository.count() < 1000){
             File file = ResourceUtils.getFile("classpath:csvdata/games_data.csv");

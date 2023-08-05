@@ -31,7 +31,7 @@ public class Game {
     @Column
     private String title;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game",  fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
     @ManyToMany

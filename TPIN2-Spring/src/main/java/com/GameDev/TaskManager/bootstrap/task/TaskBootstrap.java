@@ -47,20 +47,25 @@ public class TaskBootstrap implements CommandLineRunner {
             List<Developer> developerList = developerRepository.findAll();
             List<Game> gameList = gameRepository.findAll();
 
+
             if (!taskRecordCsvList.isEmpty()){
                 log.info("Loading database with developers");
                 for (TaskRecordCsv taskRecordCsv: taskRecordCsvList) {
                     int randomElement = (int) (Math.random() * 999) + 1;
-                    taskRepository.save(
+                    Game gameRandom = gameList.get(randomElement);
+
+                    Task taskNew = taskRepository.save(
                             Task.builder()
                                     .uuid(UUID.randomUUID())
                                     .description(taskRecordCsv.getDescription())
                                     .stateEnum(taskRecordCsv.getStateEnum())
                                     .deadLine(taskRecordCsv.getDeadLine())
                                     .responsibleDeveloper(developerList.get(randomElement))
-                                    .game(gameList.get(randomElement))
+                                    .game(gameRandom)
                                     .build()
                     );
+                    gameRandom.getTasks().add(taskNew);
+                    gameRepository.saveAndFlush(gameRandom);
                 }
             }
         }
