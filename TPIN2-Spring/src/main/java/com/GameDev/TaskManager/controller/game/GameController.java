@@ -40,7 +40,6 @@ public class GameController {
             return ResponseEntity.status(HttpStatus.OK).header("Location",header).body(gameDto);
 
         } catch (Exception e) {
-            log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
@@ -110,6 +109,7 @@ public class GameController {
     @PutMapping("/{id}/developer")
     public ResponseEntity addDeveloperByBody(@PathVariable UUID id, @RequestBody DeveloperDto developerDto) throws Exception {
         try {
+            //controlar
             return ResponseEntity.status(HttpStatus.OK).body(gameService.addDeveloperByBody(id,developerDto));
         } catch (Exception e) {
             log.error(e.getMessage());

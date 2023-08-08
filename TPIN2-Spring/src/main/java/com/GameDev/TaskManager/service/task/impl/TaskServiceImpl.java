@@ -11,6 +11,7 @@ import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.repository.task.TaskRepository;
 import com.GameDev.TaskManager.service.task.TaskService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -40,6 +41,7 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Override
+    @Transactional
     public Optional<TaskDto> updateState(UUID uuid, StateEnum stateEnum) {
         Optional<Task> optionalTask = Optional.of(taskRepository.getById(uuid));
         optionalTask.get().setStateEnum(stateEnum);
@@ -109,6 +111,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Task create(TaskDto taskDto) throws Exception {
         try {
             Optional<Developer> developerFound = developerRepository.findById(UUID.fromString(taskDto.getResponsibleDeveloperDto()));
@@ -130,6 +133,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public boolean delete(UUID uuid) {
         if(findById(uuid).isPresent()){
             taskRepository.deleteById(uuid);
@@ -140,6 +144,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public Object update(UUID uuid, TaskDto taskDto) throws Exception {
         Optional<Task> taskDtoOptional = taskRepository.findById(uuid);
         Optional<Developer> developerOptional = developerRepository.findById(taskDtoOptional.get().getResponsibleDeveloper().getUuid());

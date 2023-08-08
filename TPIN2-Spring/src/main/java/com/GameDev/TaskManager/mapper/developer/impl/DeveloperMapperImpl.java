@@ -22,8 +22,6 @@ public class DeveloperMapperImpl implements DeveloperMapper {
                 .name(developerDto.getName())
                 .lastName(developerDto.getLastName())
                 .roleEnum(developerDto.getRoleEnum())
-                //.games(gamerMapper.convertListGameDtoToListEntityGame(developerDto.getGamesDtos()))
-                //.tasks(taskMapper.convertListTaskDtoToListEntityTask(developerDto.getTaskDtos()))
                 .build();
         return developer;
     }
@@ -43,8 +41,6 @@ public class DeveloperMapperImpl implements DeveloperMapper {
                 .lastName(developer.getLastName())
                 .email(developer.getEmail())
                 .roleEnum(developer.getRoleEnum())
-                //.gamesDtos(gamerMapper.convertListEntityGameToListGameDto(developer.getGames()))
-               // .taskDtos(taskMapper.convertListEntityTaskToListTaskDto(developer.getTasks()))
                 .build();
         return developerDto;
     }

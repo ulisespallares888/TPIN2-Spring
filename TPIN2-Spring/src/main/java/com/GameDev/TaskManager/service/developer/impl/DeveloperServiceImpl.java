@@ -6,6 +6,7 @@ import com.GameDev.TaskManager.model.dto.developer.DeveloperDto;
 import com.GameDev.TaskManager.repository.developer.DeveloperRepository;
 import com.GameDev.TaskManager.repository.game.GameRepository;
 import com.GameDev.TaskManager.service.developer.DeveloperService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +41,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    @Transactional
     public Developer create(DeveloperDto developerDto) throws Exception {
         try {
             return developerRepository.save(developerMapper.formDtoToEntity(developerDto));
@@ -50,6 +52,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    @Transactional
     public boolean delete(UUID uuid) {
         if(findById(uuid).isPresent()){
             developerRepository.deleteById(uuid);
@@ -61,6 +64,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    @Transactional
     public Optional<DeveloperDto> update(UUID uuid, DeveloperDto developerDto) throws Exception {
         Optional<Developer> developerOptional  = developerRepository.findById(uuid);
 

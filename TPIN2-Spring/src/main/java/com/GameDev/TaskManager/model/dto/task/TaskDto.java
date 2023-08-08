@@ -26,5 +26,5 @@ public class TaskDto {
     private String gameTask;
     @NotBlank
     private String responsibleDeveloperDto;
-   // private List<GameDto> gameDtos = new ArrayList<>();
+
 }

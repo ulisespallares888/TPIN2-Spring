@@ -22,6 +22,4 @@ public class DeveloperDto {
     private String email;
     @NotNull
     private RoleEnum roleEnum;
-  //  private List<TaskDto> taskDtos = new ArrayList<>();
-   // private List<GameDto> gamesDtos = new ArrayList<>();
 }
